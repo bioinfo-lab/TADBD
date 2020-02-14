@@ -29,4 +29,6 @@ Abstract<br>
 	//: Output a text file
 	Output(df_result, species, chr, resolution)
 	//: Output a heatmap
+        Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)  
+
          
