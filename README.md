@@ -28,6 +28,12 @@ Abstract<br>
 	df_result <- TADBD(hicmat)
 	#Output a text file
 	Output(df_result, species, chr, resolution)
+<<<<<<< HEAD
 	#Output a heatmap
 	Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
+=======
+	//: Output a heatmap
+    Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)  
+
+>>>>>>> ce5578511a2204f33303bc211d58b5266fa38209
          
