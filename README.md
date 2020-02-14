@@ -26,5 +26,7 @@ Abstract<br>
 	data(hicdata)
 	hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
 	df_result <- TADBD(hicmat)
+	//: Output a text file
 	Output(df_result, species, chr, resolution)
+	//: Output a heatmap
          
