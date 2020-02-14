@@ -1,7 +1,7 @@
 TADBD: a sensitive and fast method for detection of TAD boundaries
 
 Abstract<br>
- 　  Hi-C technology allows for genome-wide profiling of chromatin interactions in space. Topological Associated Domain (TAD) is a self-interacting genomic block. The detection of TAD boundaries on Hi-C contact matrix is one of the most important issues in the analysis of 3D genome architecture at TAD level. Here, we present TADBD, a sensitive and fast computational method for detection of TAD boundaries on Hi-C contact matrix. It implements a Haar-based algorithm considering Haar diagonal template, the acceleration via a compact integrogram, multi-scale aggregation at template size, and statistical filtering. Compared with the other six popular methods based on simulated and experimental Hi-C data, TADBD is competitive in terms of accuracy, speed and robustness. In addition, a new R package TADBD is freely given out online.
+ 　  Topological Associated Domain (TAD) is a self-interacting genomic block. The detection of TAD boundaries on Hi-C contact matrix is one of the most important issues in the analysis of 3D genome architecture at TAD level. Here, we present TADBD, a sensitive and fast computational method for detection of TAD boundaries on Hi-C contact matrix. It implements a Haar-based algorithm considering Haar diagonal template, the acceleration via a compact integrogram, multi-scale aggregation at template size, and statistical filtering. Compared with the other six popular methods based on simulated and experimental Hi-C data, TADBD is competitive in terms of accuracy, speed and robustness. In addition, a new R package TADBD is freely given out online.
 
 1> Datasets<br>
   Simulated data:<br>
