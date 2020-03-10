@@ -16,29 +16,29 @@ Abstract<br>
   Depends:<br>
  　   R (>= 3.5.1)<br>
  Installation:
-install.packages("devtools") # if you have not installed "devtools" package
-devtools::install_github("bioinfo-lab/TADBD")
-Parameter tunning:
-XXXXXXXX
+  install.packages("devtools") # if you have not installed "devtools" package
+  devtools::install_github("bioinfo-lab/TADBD")
+  Parameter tunning:
+  XXXXXXXX
 
 Example:
-#Clear all objects from the current workspace
-rm(list=ls())
-#Load R package TADBD
-library(TADBD)
-#Configuration of the parameters, including species, chromsome and resolution
-species <- "hg19"
-chr <- "chr18"
-resolution <- 50000
-#Close scientific notation
-options(scipen = 999)
-#Specify Hi-C data to be loaded
-data(hicdata)
-#Load a Hi-C contact matrix file in a dense format
-hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
-#Detect TAD boundaries on the loaded contact matrix using TADBD method
-df_result <- TADBD(hicmat)
-#Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
-Output(df_result, species, chr, resolution, outxtfile="./result")
-#Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
-Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
+  #Clear all objects from the current workspace
+  rm(list=ls())
+  #Load R package TADBD
+  library(TADBD)
+  #Configuration of the parameters, including species, chromsome and resolution
+  species <- "hg19"
+  chr <- "chr18"
+  resolution <- 50000
+  #Close scientific notation
+  options(scipen = 999)
+  #Specify Hi-C data to be loaded
+  data(hicdata)
+  #Load a Hi-C contact matrix file in a dense format
+  hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+  #Detect TAD boundaries on the loaded contact matrix using TADBD method
+  df_result <- TADBD(hicmat)
+  #Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
+  Output(df_result, species, chr, resolution, outxtfile="./result")
+  #Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
+  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
