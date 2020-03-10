@@ -15,13 +15,17 @@ Abstract<br>
  　   An R package for detection of TAD boundaries<br> 
   Depends:<br>
  　   R (>= 3.5.1)<br>
- Installation:
+     
+ Installation:<br>
+ ```
   install.packages("devtools") # if you have not installed "devtools" package
   devtools::install_github("bioinfo-lab/TADBD")
-  Parameter tunning:
-  XXXXXXXX
+ ```
+  Parameter tunning:<br>
+  XXXXXXXX<br>
 
-Example:
+Example:<br>
+```
   #Clear all objects from the current workspace
   rm(list=ls())
   #Load R package TADBD
@@ -42,3 +46,4 @@ Example:
   Output(df_result, species, chr, resolution, outxtfile="./result")
   #Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
   Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
+```
