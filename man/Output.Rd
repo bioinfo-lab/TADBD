@@ -21,17 +21,24 @@ hicmat          a dense contact matrix by DataLoad, the argument needs to be
 \description{Take the bin number of the detected TAD boundaries as input, and output the TAD boundaries in an optional form between text file and graphical heatmap.
 }
 \examples{
+#Clear all objects from the current workspace
 rm(list=ls())
+#Load R package TADBD
 library(TADBD)
+#Configuration of the parameters, including species, chromsome and resolution
 species <- "hg19"
 chr <- "chr18"
 resolution <- 50000
+#Close scientific notation
 options(scipen = 999)
+#Specify Hi-C data to be loaded
 data(hicdata)
+#Load a Hi-C contact matrix file in a dense format
 hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+#Detect TAD boundaries on the loaded contact matrix using TADBD method
 df_result <- TADBD(hicmat)
-#Output coordinates of TAD boundary 
+#Output two text files, one is for detected TAD boundaries, the other for intermediate peaks 
 Output(df_result, species, chr, resolution, outxtfile="./result")
-#Output heatmap and TAD boundary tracks
-#Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = F, heatmapfile="./heatmap", hicmat)
+#Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
+Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = F, heatmapfile="./heatmap", hicmat)
 }
