@@ -5,7 +5,7 @@ Author:
   - name: Lin Li
 date: '`r format(Sys.Date(), "%B %e, %Y")`'
 abstract: >
-  TADBD, a sensitive and fast computational method for detection of TAD boundaries on Hi-C contact matrix. Topological Associated Domain (TAD) is a self-interacting genomic block. The detection of TAD boundaries on Hi-C contact matrix is one of the most important issues in the analysis of 3D genome architecture at TAD level. Here, we present TADBD, a sensitive and fast computational method for detection of TAD boundaries on Hi-C contact matrix. It implements a Haar-based algorithm considering Haar diagonal template, the acceleration via a compact integrogram, multi-scale aggregation at template size, and statistical filtering. Compared with the other six popular methods based on simulated and experimental Hi-C data, TADBD is competitive in terms of accuracy, speed and robustness. In addition, a new R package TADBD is freely given out online.
+  Topological Associated Domain (TAD) is a self-interacting genomic block. The detection of TAD boundaries on Hi-C contact matrix is one of the most important issues in the analysis of 3D genome architecture at TAD level. Here, we present TADBD, a sensitive and fast computational method for detection of TAD boundaries on Hi-C contact matrix. It implements a Haar-based algorithm considering Haar diagonal template, the acceleration via a compact integrogram, multi-scale aggregation at template size, and statistical filtering. Compared with the other five methods, including HiCDB, IC-Finder, EAST, TopDom and HiCseg, on simulated and experimental data, TADBD shows a better performance in most cases. In addition, a freely available R package is given to facilitate the use of the presented method.
 package: TADBD
 output: rmarkdown::html_vignette
 vignette: >
@@ -33,8 +33,8 @@ options(width = 400)
 # if (!requireNamespace("BiocManager", quietly=TRUE))
 #     install.packages("BiocManager")
 # BiocManager::install("TADBD")
-#devtools::install_github("bioinfo-lab/TADBD")
-#library(TADBD)
+devtools::install_github("bioinfo-lab/TADBD")
+library(TADBD)
 ```
 
 ## Input data
@@ -43,26 +43,38 @@ The input contact matrix can be dense or sparse.
 #### sparse format
 Below is an example of loading data when 'hicmat' is in sparse format
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
+#Clear all objects from the current workspace
 #rm(list=ls())
+#Load R package TADBD
 #library(TADBD)
+#Configuration of the parameters, including species, chromsome and resolution
 #species <- "hg19"
 #chr <- "chr18"
 #resolution <- 50000
+#Close scientific notation
 #options(scipen = 999)
+#Specify Hi-C data to be loaded
 #data(hicdata)
+#Load a Hi-C contact matrix file in a sparse format
 #hicmat <- DataLoad(hicdata, bsparse = T, species, chr, resolution)
 ```
 
 #### dense format
 Below is an example of loading data when 'hicmat' is in dense format
 ```{r, echo = FALSE, warning = FALSE, message = FALSE}
+#Clear all objects from the current workspace
 rm(list=ls())
+#Load R package TADBD
 library(TADBD)
+#Configuration of the parameters, including species, chromsome and resolution
 species <- "hg19"
 chr <- "chr18"
 resolution <- 50000
+#Close scientific notation
 options(scipen = 999)
+#Specify Hi-C data to be loaded
 data(hicdata)
+#Load a Hi-C contact matrix file in a dense format
 hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
 ```
 
@@ -70,49 +82,66 @@ hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
 ## Running TADBD
 Once matrices that the function `LoadData()` outputs are in an acceptable format, `TADBD()` can be run with only one parameter. Below we show how to run the algorithm, and `TADBD()` outputs the the bin number of TAD boundaries on the contact matrix  
 ```{r, message = FALSE, warning = FALSE}
+#Clear all objects from the current workspace
 rm(list=ls())
+#Load R package TADBD
 library(TADBD)
-#specify the species, resolution, and chromosome
+#Configuration of the parameters, including species, chromsome and resolution
 species <- "hg19"
 chr <- "chr18"
 resolution <- 50000
+#Close scientific notation
 options(scipen = 999)
+#Specify Hi-C data to be loaded
 data(hicdata)
-#Transfer the input format into an acceptable format
+#Load a Hi-C contact matrix file in a dense format
 hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
-#Output the bin number of TAD boundaries on the contact matrix 
+#Detect TAD boundaries on the loaded contact matrix using TADBD method
 df_result <- TADBD(hicmat)
 ```
 
 ## Detecting TAD boundaries
 Our method is specifically designed to detect TAD boundaries. The function `output()` takes the bin number of the detected TAD boundaries as input, and outputs the TAD boundaries in an optional form between text file and graphical heatmap. Below is an example of running the function `output()`.
-### Output a text file
+### Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
 ```{r, message = FALSE}
+#Clear all objects from the current workspace
 rm(list=ls())
+#Load R package TADBD
 library(TADBD)
+#Configuration of the parameters, including species, chromsome and resolution
 species <- "hg19"
 chr <- "chr18"
 resolution <- 50000
+#Close scientific notation
 options(scipen = 999)
+#Specify Hi-C data to be loaded
 data(hicdata)
+#Load a Hi-C contact matrix file in a dense format
 hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+#Detect TAD boundaries on the loaded contact matrix using TADBD method
 df_result <- TADBD(hicmat)
-#Output coordinates of TAD boundary 
+#Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
 Output(df_result, species, chr, resolution, outxtfile="./result")
-
 ```
 ### Output a heatmap
 ```{r, message = FALSE}
+#Clear all objects from the current workspace
 rm(list=ls())
+#Load R package TADBD
 library(TADBD)
+#Configuration of the parameters, including species, chromsome and resolution
 species <- "hg19"
 chr <- "chr18"
 resolution <- 50000
+#Close scientific notation
 options(scipen = 999)
+#Specify Hi-C data to be loaded
 data(hicdata)
+#Load a Hi-C contact matrix file in a dense format
 hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+#Detect TAD boundaries on the loaded contact matrix using TADBD method
 df_result <- TADBD(hicmat)
-#Output heatmap and TAD boundary tracks
+#Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
 Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
 ```
 
