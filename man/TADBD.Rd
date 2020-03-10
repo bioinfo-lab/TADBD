@@ -19,13 +19,20 @@ A dataframe consisting of the bin number of the detected TAD boundaries.
 Take a dense contact matrix as input, and output the bin number of TAD boundaries on the contact matrix.
 }
 \examples{
+#Clear all objects from the current workspace
 rm(list=ls())
+#Load R package TADBD
 library(TADBD)
+#Configuration of the parameters, including species, chromsome and resolution
 species <- "hg19"
 chr <- "chr18"
 resolution <- 50000
+#Specify Hi-C data to be loaded
 options(scipen = 999)
+#Specify Hi-C data to be loaded
 data(hicdata)
+#Load a Hi-C contact matrix file in a dense format
 hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+#Detect TAD boundaries on the loaded contact matrix using TADBD method
 df_result <- TADBD(hicmat)
 }
