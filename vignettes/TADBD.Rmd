@@ -33,6 +33,7 @@ options(width = 400)
 # if (!requireNamespace("BiocManager", quietly=TRUE))
 #     install.packages("BiocManager")
 # BiocManager::install("TADBD")
+install.packages("devtools") # if you have not installed "devtools" package
 devtools::install_github("bioinfo-lab/TADBD")
 library(TADBD)
 ```
