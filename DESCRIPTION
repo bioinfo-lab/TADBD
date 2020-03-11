@@ -1,6 +1,6 @@
 Package: TADBD
 Type: Package
-Title: A sensitive and tool for detection of TAD boundaries
+Title: A sensitive and fast tool for detection of TAD boundaries
 Version: 0.99.0
 Author: Hongqiang Lyu and Lin Li
 Maintainer: The package maintainer <hongqianglv@mail.xjtu.edu.cn>
@@ -10,7 +10,7 @@ Encoding: UTF-8
 LazyData: true
 biocViews: Software, HiC, Sequencing, FeatureExtraction
 NeedsCompilation: no
-Packaged: 2020-02-14 11:02:28 UTC; 18804
-Depends: R (>= 3.5.0)
+Packaged: 2020-02-14 11:02:28 UTC
+Depends: R (>= 3.6.2)
 Suggests: knitr
 VignetteBuilder: knitr
