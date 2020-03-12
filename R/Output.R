@@ -4,18 +4,37 @@
 # @param chr : string, chromosome number of input data
 # @param resolution : int, resolution of input data
 # @param outxtfile  : string, directory and name of output file where the TAD boundary coordinates are written
-# @param bheatmap : string, if draw heatmap, bheatmap = T
-#                           if not draw heatmap,  bheatmap = F(default)
+# @param bheatmap : string, if draw heatmap, bheatmap = TRUE
+#                           if not draw heatmap,  bheatmap = (default)
 # @param heatmapfile  : string, directory and name of output file where heatmap and TAD boundary tracks are visualized
 # @param hicmat : matrix, matrixFile by hicdata
+# @param map_start : int, the starting coordinates of the heatmap
+#                    value is an integer multiple of resolution
+# @param map_end : int, the ending coordinates of the heatmap,
+#                  value is an integer multiple of resolution
+# @param l_color : string, color of the TAD track
+# @param l_width : float, width of the TAD track
 ### Supplementary notes ###
 # The source of function heatmap.2 is Rpackage gplots::heatmap.2.
 # The source of function colorpanel is Rpackage gplots::colorpanel.
 Output <- function(df_result, species = "hg19", chr = "chr1",
-                   resolution = 50000, outxtfile=NULL, bheatmap = F, heatmapfile=NULL, hicmat = NULL)
+                   resolution = 50000, outxtfile=NULL, bheatmap = FALSE, heatmapfile=NULL, hicmat = NULL,
+                   map_start = 0, map_end = 10000000,l_color="blue",l_width=2.5)
 {
-  map_up <- 1
-  map_down <- nrow(hicmat)
+  #### set range of heatmap ########
+  if (bheatmap == TRUE)
+  {
+    map_up <- floor(map_start/resolution)+1
+    map_down <- floor(map_end/resolution)+1
+    if (map_up > nrow(hicmat))
+    {
+      map_up <- 1
+    }
+    if (map_down > nrow(hicmat))
+    {
+      map_down <- nrow(hicmat)
+    }
+  }
   #######################
   if (length(df_result) == 1)
   {
@@ -31,14 +50,10 @@ Output <- function(df_result, species = "hg19", chr = "chr1",
                   sep = "  ", row.names = FALSE, col.names = TRUE)
     }
     ############  draw heatmap #####################
-    if (bheatmap == T && !is.null(heatmapfile))
+    if (bheatmap == TRUE && !is.null(heatmapfile))
     {
       x_peaks_resolution <- outfile0$end
       x_peaks <- x_peaks_resolution/resolution + 1
-      for(i in 1:length(x_peaks))
-      {
-        hicmat[x_peaks[i],x_peaks[i]] <- 0
-      }
       hicmat <- log10(hicmat+1)
       hicmat <- hicmat[c(map_up:map_down),c(map_up:map_down)]
       x_peaks <<- x_peaks
@@ -49,11 +64,15 @@ Output <- function(df_result, species = "hg19", chr = "chr1",
       Layy <<- LXY$Layy
       Lbxx <<- LXY$Lbxx
       Lbyy <<- LXY$Lbyy
+      l_color <<- l_color
+      l_width <<- l_width
+      ####################
+      rownames(hicmat) <- resolution * c(map_up:map_down)
       heatmap.2(hicmat, Rowv=FALSE,col=colorpanel(128,"lightyellow","red"),symm=TRUE,dendrogram="none",
-                trace = "none",labRow = FALSE,labCol = FALSE,density.info="none",key=FALSE,
-                lmat=rbind(c(1,4),c(3,2)),lhei=c(7,1),lwid=c(7,1),
+                trace = "none", offsetRow=2.2,labCol = FALSE, xlab=paste0(chr,":",map_up*resolution,"-",map_down*resolution),
+                lmat=rbind(c(3,4),c(2,1)),lhei=c(1,5),lwid=c(1,5),keysize=3.5,key.xlab="",
                 add.expr=for(j in 1:length(Laxx)){lines(c(Laxx[j],Lbxx[j]),c(Layy[j],Lbyy[j]),
-                                                        col = "yellow",lwd = 2.5)})
+                                                        col = l_color, lwd = l_width)})
       dev.off()
     }
   }
@@ -80,28 +99,28 @@ Output <- function(df_result, species = "hg19", chr = "chr1",
                   sep = "  ", row.names = FALSE, col.names = TRUE)
     }
     ###########    draw heatmap  #####################
-    if (bheatmap == T && !is.null(heatmapfile))
+    if (bheatmap == TRUE && !is.null(heatmapfile))
     {
       boundary_resolution <- outfile2$end
-      boundary <- boundary_resolution/resolution + 1
-      for(i in 1:length(boundary))
-      {
-        hicmat[boundary[i],boundary[i]] <- 0
-      }
+      boundary <- boundary_resolution/resolution
       hicmat <- log10(hicmat+1)
       hicmat <- hicmat[c(map_up:map_down),c(map_up:map_down)]
       pathname_map <- paste(heatmapfile, "_DomainsMap.TIFF", sep="")
-      tiff(pathname_map, width = 18, height = 18, units = "cm", res=350)      
+      tiff(pathname_map, width = 18, height = 18, units = "cm", res=350)
       LXY <- Coordinate(boundary, map_up, map_down)
       Laxx <<- LXY$Laxx
       Layy <<- LXY$Layy
       Lbxx <<- LXY$Lbxx
       Lbyy <<- LXY$Lbyy
+      l_color <<- l_color
+      l_width <<- l_width
+      ############
+      rownames(hicmat) <- resolution * c(map_up:map_down)
       heatmap.2(hicmat, Rowv=FALSE,col=colorpanel(128,"lightyellow","red"),symm=TRUE,dendrogram="none",
-                trace = "none",labRow = FALSE,labCol = FALSE,density.info="none",key=FALSE,
-                lmat=rbind(c(1,4),c(3,2)),lhei=c(7,1),lwid=c(7,1),
+                trace = "none", offsetRow=2.2,labCol = FALSE, xlab=paste0(chr,":",map_up*resolution,"-",map_down*resolution),
+                lmat=rbind(c(3,4),c(2,1)),lhei=c(1,5),lwid=c(1,5),keysize=3.5,key.xlab="",
                 add.expr=for(j in 1:length(Laxx)){lines(c(Laxx[j],Lbxx[j]),c(Layy[j],Lbyy[j]),
-                                                        col = "yellow",lwd = 2.5)})
+                                                        col = l_color, lwd = l_width)})
       dev.off()
     }
   }
@@ -650,7 +669,7 @@ heatmap.2 <- function (x,
   ## add row labels
   if(is.null(srtRow) && is.null(colRow))
   {
-    axis(4,
+    axis(2,
          iy,
          labels=labRow,
          las=2,
@@ -667,7 +686,7 @@ heatmap.2 <- function (x,
     {
       xpd.orig <- par("xpd")
       par(xpd=NA)
-      ypos <- axis(4, iy, labels=rep("", nr), las=2, line= -0.5, tick=0)
+      ypos <- axis(2, iy, labels=rep("", nr), las=2, line= -0.5, tick=0)
       text(x=par("usr")[2] + (1.0 + offsetRow) * strwidth("M"),
            y=ypos,
            labels=labRow,
@@ -685,7 +704,7 @@ heatmap.2 <- function (x,
 
 
   ## add row and column headings (xlab, ylab)
-  if(!is.null(xlab)) mtext(xlab, side = 1, line = margins[1] - 1.25)
+  if(!is.null(xlab)) mtext(xlab, side = 2, line = margins[1] - 1.25)
   if(!is.null(ylab)) mtext(ylab, side = 4, line = margins[2] - 1.25)
 
   ## perform user-specified function
