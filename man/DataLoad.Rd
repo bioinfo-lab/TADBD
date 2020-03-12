@@ -22,8 +22,6 @@ A dense contact matrix.
 Load a Hi-C matrix file in sparse or dense format, and output the dense contact matrix.
 }
 \examples{
-#Clear all objects from the current workspace
-rm(list=ls())
 #Load R package TADBD
 library(TADBD)
 #Configuration of the parameters, including species, chromsome and resolution
@@ -35,5 +33,5 @@ options(scipen = 999)
 #Specify Hi-C data to be loaded
 data(hicdata)
 #Load a Hi-C contact matrix file in a dense format
-hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+hicmat <- DataLoad(hicdata, bsparse = FALSE, species, chr, resolution)
 }
