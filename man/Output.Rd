@@ -17,12 +17,14 @@ heatmapfile     the path and name of output heatmap file, the argument needs to 
                 specifie only when bheatmap = T.
 hicmat          a dense contact matrix by DataLoad, the argument needs to be
                 specifie only when bheatmap = T.
+map_start       the starting coordinates of the heatmap,value is an integer multipleof resolution.
+map_end         the ending coordinates of the heatmap,value is an integer multipleof resolution.
+l_color         color of the TAD track.
+l_width         width of the TAD track.
 }
 \description{Take the bin number of the detected TAD boundaries as input, and output the TAD boundaries in an optional form between text file and graphical heatmap.
 }
 \examples{
-#Clear all objects from the current workspace
-rm(list=ls())
 #Load R package TADBD
 library(TADBD)
 #Configuration of the parameters, including species, chromsome and resolution
@@ -34,11 +36,17 @@ options(scipen = 999)
 #Specify Hi-C data to be loaded
 data(hicdata)
 #Load a Hi-C contact matrix file in a dense format
-hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
+hicmat <- DataLoad(hicdata, bsparse = FALSE, species, chr, resolution)
 #Detect TAD boundaries on the loaded contact matrix using TADBD method
 df_result <- TADBD(hicmat)
-#Output two text files, one is for detected TAD boundaries, the other for intermediate peaks 
+#Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
 Output(df_result, species, chr, resolution, outxtfile="./result")
+#Configuration of parameters of the heatmap, which include the starting coordinates and the ending coordinate of the heatmap
+map_start <- 0
+map_end <- 10000000
+#Specify the parameters of TAD tracks
+l_color <- "blue"
+l_width <- 2.5
 #Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
-Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = F, heatmapfile="./heatmap", hicmat)
+Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = TRUE, heatmapfile="./heatmap", hicmat, map_start, map_end, l_color, l_width)
 }
