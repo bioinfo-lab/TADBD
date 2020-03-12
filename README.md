@@ -46,4 +46,5 @@ Example:<br>
   Output(df_result, species, chr, resolution, outxtfile="./result")
   #Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
   Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
+  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = TRUE, heatmapfile="./heatmap", hicmat, map_start, map_end, l_color, l_width)
 ```
