@@ -7,14 +7,14 @@
 # @param template.sizes :vector, some numbers of bins to extend
 #                        template.sizes, default value c(4, 5, 6)
 #                        template.sizes = others, such as c(3, 4, 5, 6) and so on
-# @param bstatfilter : string, bstatfilter = F, not statistical filter
-#                              bstatfilter = T, get qvalu and statistical filter (default)
+# @param bstatfilter : string, bstatfilter = FALSE, not statistical filter
+#                              bstatfilter = TRUE, get qvalu and statistical filter (default)
 # output
 # @param df_result : dataframe, include coordinate information of boundary points
 ### Supplementary notes ###
 # The source of function findpeaks is Rpackage pracma::findpeaks.
 # The source of function qvalue is a software package in Bioconductor.
-TADBD<-function(hicmat, template.sizes = c(4,5,6), bstatfilter = T)
+TADBD<-function(hicmat, template.sizes = c(4,5,6), bstatfilter = TRUE)
 {
   disdata1 <- hicmat
   size_diag_max <- max(template.sizes)
@@ -51,7 +51,7 @@ TADBD<-function(hicmat, template.sizes = c(4,5,6), bstatfilter = T)
   qvalue<-c(qvalue)
 
 
-  if (bstatfilter == T)
+  if (bstatfilter == TRUE)
   {
     from.id1 <- from.id
     to.id1 <- to.id
@@ -72,7 +72,7 @@ TADBD<-function(hicmat, template.sizes = c(4,5,6), bstatfilter = T)
     df_result <- list("allpeaks" = outfile1, "domains" = outfile2)
     return(df_result)
   }
-  if (bstatfilter == F)
+  if (bstatfilter == FALSE)
   {
     from.id3 <- from.id
     to.id3 <- to.id
@@ -186,7 +186,7 @@ getpvalue <- function(mat,peaks,size_diag)
     left_down<-as.vector(left_down)
     right_up<-as.vector(right_up)
     right_down<-as.vector(right_down)
-    wil.test =  wilcox.test(x=c(right_up,left_down), y=c(left_up,right_down), alternative="less", exact=F)
+    wil.test =  wilcox.test(x=c(right_up,left_down), y=c(left_up,right_down), alternative="less", exact=FALSE)
     pvalue[i] = wil.test$p.value
   }
   return(pvalue)
