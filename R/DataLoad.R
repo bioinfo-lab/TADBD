@@ -1,8 +1,8 @@
 # @fn DataLoad
 # input
 # @param hicdata : string, the path of input data
-# @param bsparse : string, if input data is density, sparse = F
-#                          if input data is sparse,  sparse = T
+# @param bsparse : string, if input data is density, sparse = FALSE
+#                          if input data is sparse,  sparse = TRUE
 # @param species : string, species name
 # @param chr : string, chromosome number of input data
 # @param resolution : int, resolution of input data
@@ -10,14 +10,14 @@
 # @param hicmat : matrix, matrixFile by hicdata
 DataLoad <- function(hicdata, bsparse, species, chr, resolution)
 {
-  if (bsparse == F)
+  if (bsparse == FALSE)
   {
     #######  not sparse  ####################
     # hicdata<-read.table(hicdata_path, head=FALSE)
     hicmat<-as.matrix(hicdata)
     return(hicmat)
   }
-  if (bsparse == T)
+  if (bsparse == TRUE)
   {
     #########  sparse  ######################
     switch(species,
