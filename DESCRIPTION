@@ -1,7 +1,7 @@
 Package: TADBD
 Type: Package
 Title: A sensitive and fast tool for detection of TAD boundaries
-Version: 0.99.0
+Version: 0.99.1
 Author: Hongqiang Lyu and Lin Li
 Maintainer: The package maintainer <hongqianglv@mail.xjtu.edu.cn>
 Description: Detect TAD boundaries on Hi-C contact matrix.
