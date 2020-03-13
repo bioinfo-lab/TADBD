@@ -8,13 +8,14 @@ Abstract<br>
  　   Yu, W., He, B. and Tan, K. (2017) Identifying topologically associating domains and ubdomains by Gaussian Mixture model And 
       Proportion test, Nat Commun, 8, 535.https://bitbucket.org/mforcato/hictoolscompare/src/master/<br> 
   Real data:<br>
- 　   Rao, S.S.P., et al. (2014) A 3D Map of the Human Genome at Kilobase Resolution Reveals Principles of Chromatin Looping, Cell, 159,         1665-1680.<br> 
+ 　   Rao, S.S.P., et al. (2014) A 3D Map of the Human Genome at Kilobase Resolution Reveals Principles of Chromatin Looping, Cell, 159, 1665-1680.<br> 
 		
 2> TADBD<br>		
   Description:<br>
  　   An R package for detection of TAD boundaries<br> 
   Depends:<br>
- 　   R (>= 3.5.1)<br>
+      Windows 10/linux<br>
+      R (>= 3.6.2)<br>
      
  Installation:<br>
  ```
@@ -22,7 +23,8 @@ Abstract<br>
   devtools::install_github("bioinfo-lab/TADBD")
  ```
   Parameter tunning:<br>
-  XXXXXXXX<br>
+  template.sizes: a vector consisting of multiple template sizes with a default value of c(4, 5, 6). It is worth noting that as template sizes increase, the average size of the detected TADs increases and the number of TADs decreases. The template sizes are recommended to be close to (or slightly larger than) the minimal size of expected TADs to achieve higher accuracy.<br>
+  bstatfilter: an indicative parameter indicating whether to call statistical filtering, which is usually turned on by default<br>
 
 Example:<br>
 ```
@@ -39,12 +41,11 @@ Example:<br>
   #Specify Hi-C data to be loaded
   data(hicdata)
   #Load a Hi-C contact matrix file in a dense format
-  hicmat <- DataLoad(hicdata, bsparse = F, species, chr, resolution)
-  #Detect TAD boundaries on the loaded contact matrix using TADBD method
+  hicmat <- DataLoad(hicdata, bsparse = FASLE, species, chr, resolution)
+  #Detect TAD boundaries on the loaded contact matrix using TADBD method using default parameter configuration, that is template.sizes = c(4,5,6), bstatfilter = TRUE
   df_result <- TADBD(hicmat)
   #Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
   Output(df_result, species, chr, resolution, outxtfile="./result")
-  #Output a text file with TAD boundary coordinates, as well as a heatmap with TAD boundary tracks
-  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = T, heatmapfile="./heatmap", hicmat)
-  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = TRUE, heatmapfile="./heatmap", hicmat, map_start, map_end, l_color, l_width)
+  #Output two text files and a heatmap with TAD boundary tracks, the parameters of heatmap include starting and ending coordinates, as well as the color and the width of tracks
+  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = TRUE, heatmapfile="./heatmap", hicmat, map_start=0, map_end=10000000, l_color="bule", l_width=2.5)
 ```
