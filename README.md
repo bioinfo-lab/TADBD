@@ -47,5 +47,5 @@ Example:<br>
   #Output two text files, one is for detected TAD boundaries, the other for intermediate peaks
   Output(df_result, species, chr, resolution, outxtfile="./result")
   #Output two text files and a heatmap with TAD boundary tracks, the parameters of heatmap include starting and ending coordinates, as well as the color and the width of tracks
-  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = TRUE, heatmapfile="./heatmap", hicmat, map_start=0, map_end=10000000, l_color="bule", l_width=2.5)
+  Output(df_result, species, chr, resolution, outxtfile="./result", bheatmap = TRUE, heatmapfile="./heatmap", hicmat, map_start=0, map_end=10000000, l_color="blue", l_width=2.5)
 ```
