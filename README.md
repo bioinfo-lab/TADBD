@@ -14,8 +14,8 @@ Abstract<br>
   Description:<br>
  　   An R package for detection of TAD boundaries<br> 
   Depends:<br>
-      Windows 10/linux<br>
-      R (>= 3.6.2)<br>
+ 　   Windows 10/Linux<br>
+ 　   R (>= 3.6.2)<br>
      
  Installation:<br>
  ```
