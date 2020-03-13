@@ -3,21 +3,19 @@
 \title{Take a dense contact matrix as input, and output the bin number of TAD
        boundaries on the contact matrix}
 \usage{
-TADBD(hicmat, template.sizes = c(4,5,6), bstatfilter = TRUE)
+TADBD(hicmat, template.sizes = c(4,5,6), bstatfilter = TRUE)}
 
-hicmat            a contact matrix by DataLoad function.
-template.sizes    a vector consisting of multiple template sizes, with a default
-                  value of c(4, 5, 6).The vector can also be specified by user, for
-                  example: c(3, 4, 5, 6).
-bstatfilter       if statistical filtering is involved, bstatfilter = TRUE (default),
-                  otherwise bstatfilter = FALSE.
+\arguments{
+\item{hicmat}{a contact matrix by DataLoad function.}
+\item{template.sizes}{a vector consisting of multiple template sizes, with a default value of c(4, 5, 6).The vector can also be specified by user, for example: c(3, 4, 5, 6).}
+\item{bstatfilter}{if statistical filtering is involved, bstatfilter = TRUE (default), otherwise bstatfilter = FALSE.}
 }
 \value{
-A dataframe consisting of the bin number of the detected TAD boundaries.
-}
+A dataframe consisting of the bin number of the detected TAD boundaries.}
+
 \description{
-Take a dense contact matrix as input, and output the bin number of TAD boundaries on the contact matrix.
-}
+Take a dense contact matrix as input, and output the bin number of TAD boundaries on the contact matrix.}
+
 \examples{
 #Load R package TADBD
 library(TADBD)
