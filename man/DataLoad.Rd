@@ -6,14 +6,14 @@
 DataLoad(hicdata, bsparse, species, chr, resolution)
 
 hicdata        a Hi-C matrix file.
-bsparse        if the Hi-C matrix is in sparse format, bsparse = T, otherwise
-               bsparse = F.
+bsparse        if the Hi-C matrix is in sparse format, bsparse = TRUE, otherwise
+               bsparse = FALSE.
 species        species name, including "hg19", "hg38", "mm9" and "mm10", the
-               argument needs to be specified only when bsparse = T.
+               argument needs to be specified only when bsparse = TRUE.
 chr            chromosome name, such as "chr1", "chr22", "chrX" and "chrY", the
-               argument needs to be specified only when bsparse = T.
+               argument needs to be specified only when bsparse = TRUE.
 resolution     resolution of Hi-C matrix, the argument needs to be specified only
-               when bsparse = T.
+               when bsparse = TRUE.
 }
 \value{
 A dense contact matrix.
